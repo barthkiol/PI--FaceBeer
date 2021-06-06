@@ -1,12 +1,13 @@
 package dao;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import classes.Avaliacao;
+import classes.Cerveja;
 
 
 public class AvaliacaoDao {
@@ -23,10 +24,7 @@ public class AvaliacaoDao {
 			return "Ok";
 		} catch(Exception e) {
 			throw new Exception("Erro gravando Avaliacao: "+e.getMessage());
-		} 
-		finally {
-			con.close();
-		}			
+		} 			
 	}
 	// alterar
 		public String alterar(Avaliacao avaliacao) throws Exception {
@@ -60,6 +58,21 @@ public class AvaliacaoDao {
 			// criar uma var para lista
 			EntityManager em = Conexao.getEntityManager();
 			Query q = em.createQuery("from Avaliacao");
+			return q.getResultList();				
+		}
+		public double mediaNota(Cerveja cerveja) {
+			EntityManager em = Conexao.getEntityManager();
+			Query q = em.createQuery("SELECT avg(nota) from Avaliacao where cerveja_id = :cerveja");
+			q.setParameter("cerveja", cerveja.getId());
+			double f = (double) q.getSingleResult();
+			return f;	
+		}
+		
+		public List<Avaliacao> consultarCerveja(Cerveja cerveja) throws Exception{
+			// criar uma var para lista
+			EntityManager em = Conexao.getEntityManager();
+			Query q = em.createQuery("from Avaliacao where cerveja_id = :cerveja");
+			q.setParameter("cerveja", cerveja.getId());
 			return q.getResultList();				
 		}
 }

@@ -4,9 +4,9 @@ package principal;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import classes.Apreciador;
-import classes.Cerveja;
-import dao.ApreciadorDao;
+import classes.*;
+import classes.*;
+import dao.*;
 
 public class Testes {
 
@@ -78,6 +78,7 @@ public class Testes {
 //		cerveja.setTemperatura((float) 8.5);
 //		cerveja.setDescricao("teste teste teste teste teste teste");
 //		cerveja.setVolume(500);
+//		cerveja.setNome("cerveja de teste");
 //		CervejaDao dao = new CervejaDao();
 //		try {
 //			dao.salvar(cerveja);

@@ -95,5 +95,7 @@ public class Produtor {
 				+ nome + ", senhaP=" + senhaP + ", usuarioP=" + usuarioP + "]";
 	}
 	
-	
+	public String nomeProdutor() {
+		return nome;
+	}
 }

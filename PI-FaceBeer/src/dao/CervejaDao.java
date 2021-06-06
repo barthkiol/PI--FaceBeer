@@ -1,12 +1,13 @@
 package dao;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import classes.Cerveja;
+import classes.*;
 
 
 public class CervejaDao {
@@ -70,4 +71,17 @@ public class CervejaDao {
 			q.setParameter("pesquisa", consulta);
 			return q.getResultList();				
 		}
+		
+		public Cerveja getCerveja(String nome) {
+
+			 EntityManager em = Conexao.getEntityManager();
+		      try {
+		        Cerveja cerveja = (Cerveja) em.createQuery("SELECT c from Cerveja c where c.nome = :nome").setParameter("nome", nome).getSingleResult();
+		      
+
+		        return cerveja;
+		      } catch (NoResultException e) {
+		            return null;
+		      }
+		    }
 }

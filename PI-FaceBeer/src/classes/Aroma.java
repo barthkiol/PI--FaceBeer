@@ -72,7 +72,7 @@ public class Aroma {
 
 	@Override
 	public String toString() {
-		return "Aroma [id=" + id + ", nome=" + nome + "]";
+		return nome;
 	}
 	
 	
