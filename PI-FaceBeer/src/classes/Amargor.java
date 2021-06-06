@@ -46,7 +46,7 @@ public class Amargor {
 
 	@Override
 	public String toString() {
-		return "Amargor [id=" + id + ", nome=" + nome + "]";
+		return nome;
 	}
 	
 	

@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 import classes.*;
 import dao.*;
 import bo.*;
-
+import telas.*;
 public class Inicial extends JFrame {
 
 	private JPanel contentPane;
@@ -94,11 +94,16 @@ public class Inicial extends JFrame {
 					}
 					else {
 						System.out.println("certo produtor");
+						System.out.println(produtor);
 					}
 
 				}
 				else {
 					System.out.println("certo apreciador");
+					System.out.println(apreciador);
+					Menu_Apreciador menuA = new Menu_Apreciador(apreciador);
+					menuA.menuApreciador(apreciador);
+					dispose();
 				}
 			}
 		});

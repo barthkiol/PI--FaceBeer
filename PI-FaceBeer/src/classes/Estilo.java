@@ -45,7 +45,7 @@ public class Estilo {
 
 	@Override
 	public String toString() {
-		return "Estilo [id=" + id + ", nome=" + nome + "]";
+		return nome;
 	}
 	
 	
