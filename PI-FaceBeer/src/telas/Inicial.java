@@ -46,7 +46,7 @@ public class Inicial extends JFrame {
 	public Inicial() {
 		setTitle("FaceBeer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 365);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -109,7 +109,18 @@ public class Inicial extends JFrame {
 		});
 		btnEntrar.setBackground(Color.GREEN);
 		btnEntrar.setForeground(Color.BLACK);
-		btnEntrar.setBounds(162, 227, 89, 23);
+		btnEntrar.setBounds(142, 227, 109, 31);
 		contentPane.add(btnEntrar);
+		
+		JButton btnRegister = new JButton("Cadastrar-se");
+		btnRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Cadastro_Apreciador cadApre = new Cadastro_Apreciador();
+				cadApre.cadastrarApreciador();
+			}
+		});
+		btnRegister.setBounds(139, 269, 109, 23);
+		contentPane.add(btnRegister);
 	}
 }
