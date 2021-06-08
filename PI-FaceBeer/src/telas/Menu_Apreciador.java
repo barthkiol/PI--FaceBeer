@@ -83,6 +83,7 @@ public class Menu_Apreciador extends JFrame {
 				));
 		table.setBounds(21, 46, 261, 141);
 		//contentPane.add(table);
+		
 		JScrollPane scroll = new JScrollPane(table);
 		scroll.setBounds(10, 62, 261, 141);
 		contentPane.add(scroll);

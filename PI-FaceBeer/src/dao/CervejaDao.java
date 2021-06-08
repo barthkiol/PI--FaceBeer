@@ -84,4 +84,13 @@ public class CervejaDao {
 		            return null;
 		      }
 		    }
+		
+		public List<Cerveja> consultarCervProdutor(int id) throws Exception{
+			// criar uma var para lista
+			EntityManager em = Conexao.getEntityManager();
+			Query q = em.createQuery("from Cerveja where produtor_id = :id");
+			q.setParameter("id", id);
+			return q.getResultList();				
+		}
 }
+
