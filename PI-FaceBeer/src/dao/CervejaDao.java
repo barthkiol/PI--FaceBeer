@@ -1,11 +1,15 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 import classes.*;
 
@@ -61,16 +65,66 @@ public class CervejaDao {
 			Query q = em.createQuery("from Cerveja");
 			return q.getResultList();				
 		}
-		public List<Cerveja> consultarPerso(String consulta) throws Exception{
-			// criar uma var para lista
-			EntityManager em = Conexao.getEntityManager();
-			Query q = em.createQuery("from Cerveja inner join Pais"
-					+ "on pais.id = cerveja.pais_id inner join Amargor"
-					+ "on Amargor.id = Cerveja.amargor_id"
-					+ "where pais.nome like :pesquisa% or amargor.nome like :pesquisa%");
-			q.setParameter("pesquisa", consulta);
-			return q.getResultList();				
-		}
+		
+		public List<Cerveja> pesquisaPerso(String nome, Integer idtipo, Integer idpais, Integer idamargor) throws Exception{        
+	        EntityManager em = Conexao.getEntityManager();
+	        String cSql = "select g from Cerveja g";
+	        String cWhere = "";
+	        Query q = null;
+	        if (nome.isBlank()) {
+	        }
+	        else {
+	            cWhere = "  nome = :nome";
+	        }        
+	        if (idtipo != 0) {
+	            if (cWhere.isBlank()) {
+	                cWhere = cWhere + " estilo_id = :estilo_id";
+	            }
+	            else {
+	                cWhere = cWhere + " and estilo_id = :estilo_id";
+	            }            
+	        }
+	        if (idpais != 0) {
+	        	if (cWhere.isBlank()) {
+	        		cWhere = cWhere + " pais_id = :pais_id";
+	        	}
+	        	else {
+	                cWhere = cWhere + " and pais_id = :pais_id";
+	            } 
+	        }
+	        if (idamargor != 0) {
+	        	if (cWhere.isBlank()) {
+	        		cWhere = cWhere + " amargor_id = :amargor_id";
+	        	}
+	        	else {
+	                cWhere = cWhere + " and amargor_id = :amargor_id";
+	            } 
+	        }
+	        
+	        
+	        
+	        q = em.createQuery(cSql + " where " + cWhere);        
+	        
+	        if (nome.isBlank()) {
+	        	
+	        }
+	        else {
+	            q.setParameter("nome", nome);
+	        }        
+	        if (idtipo != 0) {
+	            q.setParameter("estilo_id", idtipo);
+	        }
+	        if (idpais != 0) {
+	        	q.setParameter("pais_id", idpais);
+	        }
+	        if (idamargor != 0) {
+	        	q.setParameter("amargor_id", idamargor);
+	        }
+	        
+	        System.out.println(cSql + " WHERE " + cWhere);
+	        
+	        return q.getResultList();        
+	    }
 		
 		public Cerveja getCerveja(String nome) {
 
@@ -85,12 +139,94 @@ public class CervejaDao {
 		      }
 		    }
 		
-		public List<Cerveja> consultarCervProdutor(int id) throws Exception{
+		public List<Cerveja> consultarCervProdutor(Produtor produtor) throws Exception{
 			// criar uma var para lista
 			EntityManager em = Conexao.getEntityManager();
-			Query q = em.createQuery("from Cerveja where produtor_id = :id");
-			q.setParameter("id", id);
+			Query q = em.createQuery("Select c from Cerveja c where c.produtor = :id");
+			q.setParameter("id", produtor);
 			return q.getResultList();				
+		}
+		
+		public int numeroCervejas() {
+			EntityManager em = Conexao.getEntityManager();
+			Query q = em.createQuery("from Cerveja");
+			List <Cerveja> lista = q.getResultList();
+			int i = lista.size();
+			return i;
+		}
+		
+		public void favoritar(Cerveja cerveja, Apreciador apreciador) throws Exception {
+			try {
+	            Connection con = null;
+	            String url = "jdbc:sqlserver://localhost;databaseName=bancoPI;";
+	            
+	            String username = "Teste";
+	   		 	String password = "barth2006";
+	   		 	
+	            con = DriverManager.getConnection(url,username,password);
+	            String cSql = "select * from TB_APRECIADOR_CERVEJA where apreciador_id = (?) and cerveja_id = (?)";
+
+	            PreparedStatement pstnt = con.prepareStatement(cSql);
+	            pstnt.setInt(1, apreciador.getId());
+	            pstnt.setInt(2, cerveja.getId());
+
+	            ResultSet rs = pstnt.executeQuery();
+	            int numLinhas = 0;
+	            while (rs.next()) {
+	                numLinhas++;
+	            }
+	            if (numLinhas == 0) {
+	                
+	                cSql = "insert into TB_APRECIADOR_CERVEJA (apreciador_id, cerveja_id) " + "values (?, ?)";
+	                pstnt = con.prepareStatement(cSql);
+	                pstnt.setInt(1, apreciador.getId());
+	                pstnt.setInt(2, cerveja.getId());
+	                pstnt.execute();
+	                JOptionPane.showMessageDialog(null, "Cerveja favoritada");
+	                //System.out.println("favoritada");
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Voce ja favoritou essa cerveja");
+	            	//System.out.println("ja favoritou");
+	            }
+
+	            pstnt.close();
+	            con.close();
+
+	        } catch (Exception ex) {
+	            JOptionPane.showMessageDialog(null, ex.getMessage());
+	        	//System.out.println(ex);
+	        }
+					
+		}
+		
+		
+		public void desfavoritar(Cerveja cerveja, Apreciador apreciador) throws Exception {
+			try {
+				Connection con = null;
+				String url = "jdbc:sqlserver://localhost;databaseName=bancoPI;";
+          
+				String username = "Teste";
+				String password = "barth2006";
+ 		 	
+				con = DriverManager.getConnection(url,username,password);
+				
+
+		        String cSql = "delete from TB_APRECIADOR_CERVEJA where apreciador_id = ? and cerveja_id = ?";
+		        PreparedStatement pstnt = con.prepareStatement(cSql);
+		        pstnt = con.prepareStatement(cSql);
+		        pstnt.setInt(1, apreciador.getId());
+		        pstnt.setInt(2, cerveja.getId());
+		        pstnt.execute();
+		        JOptionPane.showMessageDialog(null, "Cerveja desfavoritada");         
+	             	          
+		        pstnt.close();
+		        con.close();
+
+			} catch (Exception ex) {
+	          JOptionPane.showMessageDialog(null, ex.getMessage());
+	      	
+			}
+					
 		}
 }
 

@@ -18,11 +18,12 @@ import classes.*;
 import dao.*;
 import bo.*;
 import telas.*;
+import javax.swing.JPasswordField;
 public class Inicial extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textUser;
-	private JTextField textSenha;
+	private JPasswordField passWordSenha;
 
 	/**
 	 * Launch the application.
@@ -67,11 +68,6 @@ public class Inicial extends JFrame {
 		lblUser.setBounds(116, 143, 46, 14);
 		contentPane.add(lblUser);
 		
-		textSenha = new JTextField();
-		textSenha.setBounds(162, 182, 86, 20);
-		contentPane.add(textSenha);
-		textSenha.setColumns(10);
-		
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setBounds(116, 185, 46, 14);
 		contentPane.add(lblSenha);
@@ -80,7 +76,7 @@ public class Inicial extends JFrame {
 		btnEntrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String senhaTemp = textSenha.getText();
+				String senhaTemp = passWordSenha.getText();
 				String userTemp = textUser.getText();
 				Apreciador apreciador = new Apreciador();
 				ApreciadorDao dao = new ApreciadorDao();
@@ -90,11 +86,14 @@ public class Inicial extends JFrame {
 				produtor = daop.getProdutor(userTemp, senhaTemp);
 				if(apreciador == null) {
 					if (produtor == null) {
-						System.out.println("erro");
+						JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
 					}
 					else {
 						System.out.println("certo produtor");
 						System.out.println(produtor);
+						Menu_Produtor menup = new Menu_Produtor(produtor);
+						menup.menuProdutor(produtor);
+						dispose();
 					}
 
 				}
@@ -118,9 +117,14 @@ public class Inicial extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Cadastro_Apreciador cadApre = new Cadastro_Apreciador();
 				cadApre.cadastrarApreciador();
+				dispose();
 			}
 		});
-		btnRegister.setBounds(139, 269, 109, 23);
+		btnRegister.setBounds(142, 269, 109, 23);
 		contentPane.add(btnRegister);
+		
+		passWordSenha = new JPasswordField();
+		passWordSenha.setBounds(162, 182, 86, 20);
+		contentPane.add(passWordSenha);
 	}
 }

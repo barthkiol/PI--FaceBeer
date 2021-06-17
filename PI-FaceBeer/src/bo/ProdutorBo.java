@@ -56,19 +56,22 @@ public class ProdutorBo {
 	private void validarDadosGrupo(Produtor produtor) throws Exception {
 		// Validação da regra de negócio
 		if (produtor.getNome().equals("")) {
-			throw new Exception("Nome do produtor não pode ficar em branco!");
+			throw new Exception("Nome não pode ficar em branco!");
 		}
 		if (produtor.getCnpj().equals("")) {
-			throw new Exception("CPF do produtor não pode ficar em branco!");
+			throw new Exception("CNPJ não pode ficar em branco!");
+		}
+		if (produtor.getCnpj().length() > 14) {
+			throw new Exception("CNPJ inválido!");
 		}
 		if (produtor.getSenhaP().equals("")) {
-			throw new Exception("Senha do produtor não pode ficar em branco!");
+			throw new Exception("Senha não pode ficar em branco!");
 		}
 		if (produtor.getUsuarioP().equals("")) {
-			throw new Exception("Usuario do produtor não pode ficar em branco!");
+			throw new Exception("Usuario não pode ficar em branco!");
 		}
 		if (produtor.getEmail().equals("")) {
-			throw new Exception("Email do produtor não pode ficar em branco!");
+			throw new Exception("Email não pode ficar em branco!");
 		}
 	}
 }

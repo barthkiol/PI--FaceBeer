@@ -3,14 +3,7 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Cerveja {
@@ -70,7 +63,7 @@ public class Cerveja {
 	@ManyToOne
 	private Produtor produtor;
 
-	@ManyToMany(mappedBy="cervejas")
+	@ManyToMany(mappedBy="cervejas", cascade=CascadeType.ALL)
 	private List<Apreciador> apreciadores;
 	public List<Apreciador> getApreciador() {
 		return apreciadores;

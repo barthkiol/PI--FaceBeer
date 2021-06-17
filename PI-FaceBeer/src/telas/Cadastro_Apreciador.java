@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -129,11 +130,13 @@ public class Cadastro_Apreciador extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					cadastrar();
-					JOptionPane.showMessageDialog(null, "Bem vindo!");
-				} catch (ParseException e1) {
+					
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				
 			}
 		});
 		btnCadastrar.setBackground(Color.GREEN);
@@ -155,23 +158,26 @@ public class Cadastro_Apreciador extends JFrame {
 		contentPane.add(btnProdutor);
 	}
 	
-	public void cadastrar() throws ParseException {
+	public void cadastrar() throws Exception  {
 		Apreciador apreciadorTemp = new Apreciador();
+		ApreciadorBo bo = new ApreciadorBo();
 		apreciadorTemp.setNome(textNome.getText());
 		apreciadorTemp.setCpf(textCPF.getText());
 		apreciadorTemp.setEmail(textEmail.getText());
-		String sDate1 = textDataNasc.getText();
-		SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
-		Date date1=formatter1.parse(sDate1); 
-		apreciadorTemp.setDatanasc(date1);
 		apreciadorTemp.setTelefone(textTelefone.getText());
 		apreciadorTemp.setUsuarioA(textUser.getText());
 		apreciadorTemp.setSenhaA(textSenha.getText());
-		ApreciadorBo bo = new ApreciadorBo();
+		String nascimento = textDataNasc.getText();
+		DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataNascInput = sdf.parse(nascimento);
+		apreciadorTemp.setDatanasc(dataNascInput);
 		try {
 			bo.salvar(apreciadorTemp);
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 		}
+		JOptionPane.showMessageDialog(null, "Bem vindo!");
+		dispose();
 	}
+	
 }

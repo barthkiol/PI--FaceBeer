@@ -54,12 +54,11 @@ public class Nova_Cerveja extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
-	 * @throws Exception 
+	 * Create the frame. 
 	 */
-	public Nova_Cerveja(Produtor produtor) throws Exception {
+	public Nova_Cerveja(Produtor produtor)  {
 		setTitle("Nova Cerveja");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 319, 424);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -83,9 +82,14 @@ public class Nova_Cerveja extends JFrame {
 		cbPais.setBounds(10, 80, 115, 22);
 		contentPane.add(cbPais);
 		PaisDao paisD = new PaisDao();
-		for (Pais p : paisD.consultar()) {
-			
-			cbPais.addItem(p);
+		try {
+			for (Pais p : paisD.consultar()) {
+				
+				cbPais.addItem(p);
+			}
+		} catch (Exception e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
 		}
 		
 		JLabel lblEstilo = new JLabel("Estilo: ");
@@ -97,9 +101,14 @@ public class Nova_Cerveja extends JFrame {
 		cbEstilo.setBounds(135, 80, 115, 22);
 		contentPane.add(cbEstilo);
 		EstiloDao estiloD = new EstiloDao();
-		for (Estilo e : estiloD.consultar()) {
-			
-			cbEstilo.addItem(e);
+		try {
+			for (Estilo e : estiloD.consultar()) {
+				
+				cbEstilo.addItem(e);
+			}
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		}
 		
 		JLabel lblAmargor = new JLabel("Amargor: ");
@@ -110,9 +119,14 @@ public class Nova_Cerveja extends JFrame {
 		cbAmargor.setBounds(10, 125, 115, 22);
 		contentPane.add(cbAmargor);
 		AmargorDao amargorD = new AmargorDao();
-		for (Amargor amrg : amargorD.consultar()) {
-			
-			cbAmargor.addItem(amrg);
+		try {
+			for (Amargor amrg : amargorD.consultar()) {
+				
+				cbAmargor.addItem(amrg);
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		JLabel lblCor = new JLabel("Colora\u00E7\u00E3o: ");
@@ -123,9 +137,14 @@ public class Nova_Cerveja extends JFrame {
 		cbCor.setBounds(135, 125, 115, 22);
 		contentPane.add(cbCor);
 		ColoracaoDao corD = new ColoracaoDao();
-		for (Coloracao c : corD.consultar()) {
-			
-			cbCor.addItem(c);
+		try {
+			for (Coloracao c : corD.consultar()) {
+				
+				cbCor.addItem(c);
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		JLabel lblAroma = new JLabel("Aromas: ");
@@ -136,9 +155,14 @@ public class Nova_Cerveja extends JFrame {
 		cbAromas.setBounds(10, 172, 115, 22);
 		contentPane.add(cbAromas);
 		AromaDao aromaD = new AromaDao();
-		for (Aroma aro : aromaD.consultar()) {
-			
-			cbAromas.addItem(aro);
+		try {
+			for (Aroma aro : aromaD.consultar()) {
+				
+				cbAromas.addItem(aro);
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		JLabel lblVolume = new JLabel("Volume (ml):");
@@ -188,10 +212,12 @@ public class Nova_Cerveja extends JFrame {
 				Aroma aromaTemp = (Aroma) cbAromas.getSelectedItem();
 				String descTemp = textDesc.getText();
 				cadastrarCerveja(paisTemp, estiloTemp, amargorTemp, corTemp, aromaTemp, descTemp, produtor);
+				JOptionPane.showMessageDialog(null, "Cerveja criada com sucesso!");
+				dispose();
 			}
 		});
 		btnNovaCerveja.setBackground(Color.GREEN);
-		btnNovaCerveja.setBounds(188, 342, 105, 32);
+		btnNovaCerveja.setBounds(175, 342, 118, 32);
 		contentPane.add(btnNovaCerveja);
 		
 		

@@ -70,6 +70,12 @@ public class Menu_Apreciador extends JFrame {
 		contentPane.add(btnPerfil);
 		
 		JButton btnMeuCat = new JButton("Meu cat\u00E1logo");
+		btnMeuCat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		btnMeuCat.setBounds(125, 249, 117, 23);
 		contentPane.add(btnMeuCat);
 		
@@ -107,11 +113,21 @@ public class Menu_Apreciador extends JFrame {
 		btnVerCerveja.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				selecionarCerveja(apreciador);
+				selecionarVerCerveja(apreciador);
 			}
 		});
 		btnVerCerveja.setBounds(317, 65, 107, 23);
 		contentPane.add(btnVerCerveja);
+		
+		JButton btnFavoritar = new JButton("Favoritar");
+		btnFavoritar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				favoritarCerveja(apreciador);
+			}
+		});
+		btnFavoritar.setBounds(317, 117, 107, 23);
+		contentPane.add(btnFavoritar);
 		pesquisaCerveja();
 		
 	}
@@ -156,7 +172,7 @@ public class Menu_Apreciador extends JFrame {
 		CervejaDao dao = new CervejaDao();
 		String pesquisa = textPesquisa.getText();
 		try {
-			List<Cerveja>  lista  = dao.consultarPerso(pesquisa);
+			List<Cerveja>  lista  = dao.pesquisaPerso();
 			
 			for (Cerveja cerveja : lista) {
 				modelo.addRow(
@@ -173,7 +189,7 @@ public class Menu_Apreciador extends JFrame {
 		}
 	}
 	
-	private void selecionarCerveja(Apreciador apreciador) {
+	private void selecionarVerCerveja(Apreciador apreciador) {
 		int linha = table.getSelectedRow();
 		String nome = (String)table.getValueAt(linha, 0);
 		Amargor amargor = (Amargor) table.getValueAt(linha, 1);
@@ -184,5 +200,22 @@ public class Menu_Apreciador extends JFrame {
 		cerveja = dao.getCerveja(nome);
 		Ver_Cerveja verCerveja = new Ver_Cerveja(cerveja, apreciador);
 		verCerveja.visualizarCerveja(cerveja, apreciador);
+	}
+	
+	private void favoritarCerveja(Apreciador apreciador) {
+		int linha = table.getSelectedRow();
+		String nome = (String)table.getValueAt(linha, 0);
+		Amargor amargor = (Amargor) table.getValueAt(linha, 1);
+		Estilo estilo = (Estilo) table.getValueAt(linha, 2);
+		Pais pais = (Pais) table.getValueAt(linha, 3);
+		Cerveja cerveja = new Cerveja();
+		CervejaDao dao = new CervejaDao();
+		cerveja = dao.getCerveja(nome);
+		try {
+			dao.favoritar(cerveja, apreciador);
+		} catch (Exception eFav) {
+			JOptionPane.showMessageDialog(null, eFav);
+		}
+		
 	}
 }

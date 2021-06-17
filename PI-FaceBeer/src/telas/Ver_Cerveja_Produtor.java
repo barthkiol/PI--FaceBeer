@@ -20,18 +20,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 
-public class Ver_Cerveja extends JFrame {
+public class Ver_Cerveja_Produtor extends JFrame {
 
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void visualizarCerveja(Cerveja cerveja, Apreciador apreciador) {
+	public static void visualizarCerveja(Cerveja cerveja) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ver_Cerveja frame = new Ver_Cerveja(cerveja, apreciador);
+					Ver_Cerveja_Produtor frame = new Ver_Cerveja_Produtor(cerveja);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +43,7 @@ public class Ver_Cerveja extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Ver_Cerveja(Cerveja cerveja, Apreciador apreciador) {
+	public Ver_Cerveja_Produtor(Cerveja cerveja) {
 		setTitle(cerveja.getNome());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 365, 370);
@@ -88,28 +88,9 @@ public class Ver_Cerveja extends JFrame {
 		lblTeorAlc.setBounds(203, 123, 156, 14);
 		contentPane.add(lblTeorAlc);
 		
-		JButton btnAvaliar = new JButton("Avaliar");
-		btnAvaliar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println(cerveja);
-				System.out.println(apreciador);
-				Avaliar av = new Avaliar(cerveja, apreciador);
-				av.telaAvaliar(cerveja, apreciador);
-			}
-		});
-		btnAvaliar.setBounds(232, 297, 89, 23);
-		contentPane.add(btnAvaliar);
-		
-		JLabel lblNota = new JLabel();
 		AvaliacaoDao avDao = new AvaliacaoDao();
-		if (avDao.temNota(cerveja) == true) {
-			lblNota.setText("Nota: Sem avaliação :C");
-		} else {
-			double f = avDao.mediaNota(cerveja);
-			lblNota.setText("Nota:" + f);
-		}
-		
+		double f = avDao.mediaNota(cerveja);
+		JLabel lblNota = new JLabel("Nota: " + f);
 		lblNota.setBounds(10, 173, 149, 14);
 		contentPane.add(lblNota);
 		
@@ -127,7 +108,7 @@ public class Ver_Cerveja extends JFrame {
 				avCerveja.telaAvalicoesCerveja(cerveja);
 			}
 		});
-		btnVerAvali.setBounds(10, 297, 120, 23);
+		btnVerAvali.setBounds(113, 297, 120, 23);
 		contentPane.add(btnVerAvali);
 		
 	}

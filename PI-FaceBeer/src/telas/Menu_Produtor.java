@@ -36,8 +36,8 @@ public class Menu_Produtor extends JFrame {
 	 */
 	public Menu_Produtor(Produtor produtor) {
 		setTitle("Ol\u00E1 " + produtor.getNome());
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 240, 292);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 254, 292);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -49,18 +49,32 @@ public class Menu_Produtor extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Cervejas_Produtor telaProdCer = new Cervejas_Produtor(produtor);
 				telaProdCer.cervejasProdutor(produtor);
-				dispose();
 			}
 		});
-		btnMinhasCerv.setBounds(52, 66, 120, 23);
+		btnMinhasCerv.setBounds(52, 66, 133, 23);
 		contentPane.add(btnMinhasCerv);
 		
 		JButton btnNovaCerveja = new JButton("Nova Cerveja");
-		btnNovaCerveja.setBounds(52, 123, 120, 23);
+		btnNovaCerveja.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Nova_Cerveja novaCerTela = new Nova_Cerveja(produtor);
+				novaCerTela.telaCadastroCerveja(produtor);
+			}
+		});
+		btnNovaCerveja.setBounds(52, 123, 133, 23);
 		contentPane.add(btnNovaCerveja);
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(52, 179, 120, 23);
+		btnSair.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Inicial inicio = new Inicial();
+				inicio.main(null);
+				dispose();
+			}
+		});
+		btnSair.setBounds(52, 179, 133, 23);
 		contentPane.add(btnSair);
 	}
 }

@@ -1,16 +1,11 @@
 package principal;
 
-
-import java.text.ParseException;
-import java.util.ArrayList;
-
-import classes.*;
-import classes.*;
-import dao.*;
+import classes.Estilo;
+import dao.EstiloDao;
 
 public class Testes {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
 //		Inserção de um apreciador
@@ -100,6 +95,106 @@ public class Testes {
 //			System.out.println(e.getMessage());
 //		}
 		
-	}
+//		CervejaDao dao = new CervejaDao();
+//		Produtor produtor = new Produtor();
+//		produtor.setId(1);
+//		
+//		for (Cerveja c : dao.consultarCervProdutor(produtor)) {
+//			System.out.println(c);
+//		}
+		
+//		ApreciadorBo bo = new ApreciadorBo();
+//		Apreciador apre = new Apreciador();
+//		String sDate1 = "20/06/2002";
+//		SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+//		Date date1=formatter1.parse(sDate1);
+//		Date datahoje =
 
+//		Cerveja cerveja = new Cerveja();
+//		cerveja.setId(10);
+//		Apreciador apreciador = new Apreciador();
+//		apreciador.setId(3);
+//		apreciador.adicionaCerveja(cerveja);
+//		cerveja.adicionaApreciador(apreciador);
+//		ApreciadorDao dao = new ApreciadorDao();
+//		CervejaDao daoC = new CervejaDao();
+//		try {
+//			daoC.salvar(cerveja);
+//			dao.salvar(apreciador);
+//			
+//		} catch (Exception e) {
+//			System.out.println(e);
+//		}
+		
+//		Cerveja cerveja = new Cerveja();
+//		cerveja.setId(10);
+//		Apreciador apreciador = new Apreciador();
+//		apreciador.setId(2);
+//		CervejaDao dao = new CervejaDao();
+//		try {
+//			dao.favoritar(cerveja, apreciador);
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+		
+//		try {
+//            Connection con = null;
+//            String url = "jdbc:sqlserver://localhost;databaseName=bancoPI;";
+//            
+//            String username = "Teste";
+//   		 	String password = "barth2006";
+//   		 	
+//            con = DriverManager.getConnection(url,username,password);
+//            //String cSql = "select * from TB_APRECIADOR_CERVEJA where apreciador_id = (?) and cerveja_id = (?)";
+//
+//            
+////            pstnt.setInt(1, apreciador.getId());
+////            pstnt.setInt(2, cerveja.getId());
+//
+//            String cSql = "delete from TB_APRECIADOR_CERVEJA where apreciador_id = ? and cerveja_id = ?";
+//            PreparedStatement pstnt = con.prepareStatement(cSql);
+//            pstnt = con.prepareStatement(cSql);
+//            pstnt.setInt(1, 2);
+//            pstnt.setInt(2, 8);
+//            pstnt.execute();
+//            JOptionPane.showMessageDialog(null, "Cerveja desfavoritada");
+//            //System.out.println("favoritada");
+//           
+//        	            
+//
+//            pstnt.close();
+//            con.close();
+//
+//        } catch (Exception ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage());
+//        	//System.out.println(ex);
+//        }
+		
+//		CervejaDao dao = new CervejaDao();
+//		String nome = "";
+//		int estilo = 0;
+//		int pais = 0;
+//		int amargor = 1;
+//		try {
+//			List<Cerveja> lista = dao.pesquisaPerso(nome, estilo, pais, amargor);
+//			for (Cerveja c : lista) {
+//				System.out.println(c);
+//			}
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+	  
+//		Estilo estilo = new Estilo(1, "Pilsen");
+//		EstiloDao dao = new EstiloDao();
+//		try {
+//			dao.alterar(estilo);
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+	} 
+
+	
 }
+	
+
+

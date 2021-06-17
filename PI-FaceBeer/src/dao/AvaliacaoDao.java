@@ -62,6 +62,7 @@ public class AvaliacaoDao {
 		}
 		public double mediaNota(Cerveja cerveja) {
 			EntityManager em = Conexao.getEntityManager();
+			CervejaDao dao = new CervejaDao();
 			Query q = em.createQuery("SELECT avg(nota) from Avaliacao where cerveja_id = :cerveja");
 			q.setParameter("cerveja", cerveja.getId());
 			double f = (double) q.getSingleResult();
@@ -74,5 +75,18 @@ public class AvaliacaoDao {
 			Query q = em.createQuery("from Avaliacao where cerveja_id = :cerveja");
 			q.setParameter("cerveja", cerveja.getId());
 			return q.getResultList();				
+		}
+		
+		public boolean temNota(Cerveja cerveja) {
+			List <Avaliacao> list;
+			EntityManager em = Conexao.getEntityManager();
+			Query q = em.createQuery("from Avaliacao where cerveja_id = :cerveja");
+			q.setParameter("cerveja", cerveja.getId());
+			list = q.getResultList();
+			if (list.isEmpty()) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 }

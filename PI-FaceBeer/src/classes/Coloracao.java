@@ -45,7 +45,7 @@ public class Coloracao {
 
 	@Override
 	public String toString() {
-		return "Coloracao [id=" + id + ", nome=" + nome + "]";
+		return nome;
 	}
 	
 	

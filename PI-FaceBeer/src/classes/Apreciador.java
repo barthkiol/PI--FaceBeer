@@ -19,7 +19,7 @@ public class Apreciador {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name = "TB_APRECIADOR_CERVEJA",  // nome da tabela relacional no BD		
 			// lado dominante/lado forte
 			joinColumns = {
