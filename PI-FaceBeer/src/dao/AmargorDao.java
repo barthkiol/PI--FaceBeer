@@ -4,8 +4,10 @@ import java.sql.*;
 import java.util.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import classes.Amargor;
 import classes.Amargor;
 
 
@@ -62,4 +64,17 @@ public class AmargorDao {
 			Query q = em.createQuery("from Amargor");
 			return q.getResultList();				
 		}
+		
+		public Amargor getAmargor(Integer id) {
+
+			 EntityManager em = Conexao.getEntityManager();
+		      try {
+		    	  Amargor amargor = (Amargor) em.createQuery("SELECT c from Amargor c where c.id = :id").setParameter("id", id).getSingleResult();
+		      
+
+		        return amargor;
+		      } catch (NoResultException e) {
+		            return null;
+		      }
+		    }
 }

@@ -20,6 +20,8 @@ import telas.*;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class Menu_Apreciador extends JFrame {
 
@@ -54,6 +56,64 @@ public class Menu_Apreciador extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JComboBox cbAmargor = new JComboBox();
+		cbAmargor.setBounds(10, 68, 73, 20);
+		contentPane.add(cbAmargor);
+		Amargor amargorNulo = new Amargor(0," ");
+		cbAmargor.addItem(amargorNulo);
+		AmargorDao amargorDao = new AmargorDao();
+		try {
+			List<Amargor> listAmargor = amargorDao.consultar();
+			for (Amargor amargor : listAmargor) {
+				cbAmargor.addItem(amargor);
+			}
+		} catch(Exception eAmargor) {
+			JOptionPane.showMessageDialog(null, eAmargor);
+		}
+		
+		JComboBox cbEstilo = new JComboBox();
+		cbEstilo.setBounds(93, 68, 73, 20);
+		contentPane.add(cbEstilo);
+		Estilo estiloNulo = new Estilo(0," ");
+		cbEstilo.addItem(estiloNulo);
+		EstiloDao estiloDao = new EstiloDao();
+		try {
+			List<Estilo> listEstilo = estiloDao.consultar();
+			for (Estilo estilo : listEstilo) {
+				cbEstilo.addItem(estilo);
+			}
+		} catch(Exception eEstilo) {
+			JOptionPane.showMessageDialog(null, eEstilo);
+		}
+		
+		JComboBox cbPais = new JComboBox();
+		cbPais.setBounds(176, 68, 73, 20);
+		contentPane.add(cbPais);
+		Pais paisNulo = new Pais(0," ");
+		cbPais.addItem(paisNulo);
+		PaisDao paisDao = new PaisDao();
+		try {
+			List<Pais> listPais = paisDao.consultar();
+			for (Pais pais : listPais) {
+				cbPais.addItem(pais);
+			}
+		} catch(Exception ePais) {
+			JOptionPane.showMessageDialog(null, ePais);
+		}
+		
+		JLabel lblAmargor = new JLabel("Amargor");
+		lblAmargor.setBounds(10, 55, 46, 14);
+		contentPane.add(lblAmargor);
+		
+		JLabel lblEstilo = new JLabel("Estilo");
+		lblEstilo.setBounds(93, 55, 46, 14);
+		contentPane.add(lblEstilo);
+		
+		JLabel lblPais = new JLabel("Pa\u00EDs");
+		lblPais.setBounds(176, 55, 46, 14);
+		contentPane.add(lblPais);
+		pesquisaCerveja();
 		
 		JButton btnPerfil = new JButton("Ver perfil");
 		btnPerfil.addMouseListener(new MouseAdapter() {
@@ -91,7 +151,7 @@ public class Menu_Apreciador extends JFrame {
 		//contentPane.add(table);
 		
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(10, 62, 261, 141);
+		scroll.setBounds(10, 97, 261, 141);
 		contentPane.add(scroll);
 		
 		textPesquisa = new JTextField();
@@ -103,7 +163,7 @@ public class Menu_Apreciador extends JFrame {
 		btnPesquisar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//pesquisaCervejaPerso();
+				pesquisaCervejaPerso((Estilo) cbEstilo.getSelectedItem(), (Pais) cbPais.getSelectedItem(), (Amargor) cbAmargor.getSelectedItem());
 			}
 		});
 		btnPesquisar.setBounds(176, 30, 89, 23);
@@ -128,7 +188,8 @@ public class Menu_Apreciador extends JFrame {
 		});
 		btnFavoritar.setBounds(317, 117, 107, 23);
 		contentPane.add(btnFavoritar);
-		pesquisaCerveja();
+		
+		
 		
 	}
 	
@@ -163,7 +224,7 @@ public class Menu_Apreciador extends JFrame {
 		}
 	}
 	
-	private void pesquisaCervejaPerso() {
+	private void pesquisaCervejaPerso(Estilo comboEstilo, Pais comboPais, Amargor comboAmargor) {
 		// Carregar o model na JTable
 		DefaultTableModel modelo = (DefaultTableModel)this.table.getModel();
 		modelo.setRowCount(0);
@@ -171,8 +232,11 @@ public class Menu_Apreciador extends JFrame {
 		
 		CervejaDao dao = new CervejaDao();
 		String pesquisa = textPesquisa.getText();
+		int idEstilo = comboEstilo.getId();
+		int idPais = comboPais.getId();
+		int idAmargor = comboAmargor.getId();
 		try {
-			List<Cerveja>  lista  = dao.pesquisaPerso();
+			List<Cerveja>  lista  = dao.pesquisaPerso(pesquisa, idEstilo, idPais, idAmargor);
 			
 			for (Cerveja cerveja : lista) {
 				modelo.addRow(

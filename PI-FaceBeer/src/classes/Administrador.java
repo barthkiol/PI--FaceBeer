@@ -14,6 +14,8 @@ public class Administrador {
 	
 	private String nomeAdm;
 	private String senhaAdm;
+	
+	@Column(unique = true)
 	private String usuarioAdm;
 	
 

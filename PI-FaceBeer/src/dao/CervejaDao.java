@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,7 +13,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
-import classes.*;
+import classes.Apreciador;
+import classes.Cerveja;
+import classes.Produtor;
 
 
 public class CervejaDao {
@@ -101,9 +105,13 @@ public class CervejaDao {
 	            } 
 	        }
 	        
+	        if(cWhere.isBlank()) {
+	        	q = em.createQuery(cSql);
+	        } else {
+	        	q = em.createQuery(cSql + " where " + cWhere); 
+	        }
 	        
-	        
-	        q = em.createQuery(cSql + " where " + cWhere);        
+	               
 	        
 	        if (nome.isBlank()) {
 	        	
@@ -126,11 +134,52 @@ public class CervejaDao {
 	        return q.getResultList();        
 	    }
 		
+		public List<Cerveja> pesquisaCatalogo(String nome, Integer idApreciador) throws Exception{        
+	        EntityManager em = Conexao.getEntityManager();
+	        String cSql = "select g from TB_APRECIADOR_CERVEJA g";
+	        String cWhere = "apreciador_id = :idapreciador";
+	        Query q = null;
+	        if (nome.isBlank()) {
+	        }
+	        else {
+	            cWhere = " and nome = :nome";
+	        }        
+	        
+	        
+	        q = em.createQuery(cSql + " where " + cWhere); 
+	        
+	        if (nome.isBlank()) {
+	        	
+	        }
+	        else {
+	            q.setParameter("nome", nome);
+	        }        
+	        
+	        q.setParameter("idapreciador", idApreciador);
+	        
+	        System.out.println(cSql + " WHERE " + cWhere);
+	        
+	        return q.getResultList();        
+	    }
+		
 		public Cerveja getCerveja(String nome) {
 
 			 EntityManager em = Conexao.getEntityManager();
 		      try {
 		        Cerveja cerveja = (Cerveja) em.createQuery("SELECT c from Cerveja c where c.nome = :nome").setParameter("nome", nome).getSingleResult();
+		      
+
+		        return cerveja;
+		      } catch (NoResultException e) {
+		            return null;
+		      }
+		    }
+		
+		public Cerveja getCervejaById(int id) {
+
+			 EntityManager em = Conexao.getEntityManager();
+		      try {
+		        Cerveja cerveja = (Cerveja) em.createQuery("SELECT c from Cerveja c where c.id = :id").setParameter("id", id).getSingleResult();
 		      
 
 		        return cerveja;
@@ -228,5 +277,40 @@ public class CervejaDao {
 			}
 					
 		}
+		
+		public List<Cerveja> consultarFavoritos(Integer idApreciador) throws Exception{
+			// criar uma var para lista
+			List<Cerveja> lista = new ArrayList<>();
+			try {
+				Connection con = null;
+				String url = "jdbc:sqlserver://localhost;databaseName=bancoPI;";
+          
+				String username = "Teste";
+				String password = "barth2006";
+ 		 	
+				con = DriverManager.getConnection(url,username,password);	
+				
+				String cSql = "SELECT * FROM TB_APRECIADOR_CERVEJA WHERE apreciador_id = ?";
+				PreparedStatement pstmt = con.prepareStatement(cSql);
+				pstmt.setInt(1, idApreciador);
+				ResultSet rs = pstmt.executeQuery();
+				while (rs.next()) {
+					int codigoCerveja = rs.getInt(2);
+					// pegando o vlr do nome do bd e jogo na var nome
+					
+					Cerveja cerveja = new Cerveja();
+					cerveja.setId(codigoCerveja); /// rs.getInt(1);
+					Cerveja cervejaSelect = getCervejaById(cerveja.getId());
+					
+					lista.add(cervejaSelect);				
+				}		
+				
+				return lista;
+			} catch(SQLException e) {
+				throw new Exception("Erro selecionando Cerveja: "+e.getMessage());
+			}				
+		}
+		
+		
 }
 

@@ -12,11 +12,15 @@ public class Produtor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	
+	@Column(unique = true)
 	private String cnpj;
 	private String email;
 	private String telefone;
 	private String nome;
 	private String senhaP;
+	
+	@Column(unique = true)
 	private String usuarioP;
 	
 	public Produtor() {

@@ -4,9 +4,11 @@ import java.sql.*;
 import java.util.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import classes.Aroma;
+
 
 
 public class AromaDao {
@@ -62,4 +64,17 @@ public class AromaDao {
 			Query q = em.createQuery("from Aroma");
 			return q.getResultList();				
 		}
+		
+		public Aroma getAroma(Integer id) {
+
+			 EntityManager em = Conexao.getEntityManager();
+		      try {
+		    	  Aroma aroma = (Aroma) em.createQuery("SELECT c from Aroma c where c.id = :id").setParameter("id", id).getSingleResult();
+		      
+
+		        return aroma;
+		      } catch (NoResultException e) {
+		            return null;
+		      }
+		    }
 }

@@ -17,7 +17,7 @@ public class Menu_Adm extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void menuAdm() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -36,7 +36,7 @@ public class Menu_Adm extends JFrame {
 	public Menu_Adm() {
 		setTitle("Administrador");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 263, 310);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,11 +72,11 @@ public class Menu_Adm extends JFrame {
 		contentPane.add(btnAmargores);
 		
 		JButton btnCores = new JButton("Cores");
-		btnCores.setBounds(144, 227, 89, 23);
+		btnCores.setBounds(24, 179, 89, 23);
 		contentPane.add(btnCores);
 		
 		JButton btnNewAdm = new JButton("<html>Novo<br>Admin</html>");
-		btnNewAdm.setBounds(335, 213, 78, 37);
+		btnNewAdm.setBounds(81, 223, 78, 37);
 		contentPane.add(btnNewAdm);
 	}
 }

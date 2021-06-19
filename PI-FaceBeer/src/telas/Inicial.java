@@ -84,9 +84,20 @@ public class Inicial extends JFrame {
 				Produtor produtor = new Produtor();
 				ProdutorDao daop = new ProdutorDao();
 				produtor = daop.getProdutor(userTemp, senhaTemp);
+				Administrador adm = new Administrador();
+				AdministradorDao admDao = new AdministradorDao();
+				adm = admDao.getAdministrador(userTemp, senhaTemp);
 				if(apreciador == null) {
 					if (produtor == null) {
-						JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+						if(adm == null) {
+							JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+						} else {
+							System.out.println("certo adm");
+							System.out.println(adm);
+							Menu_Adm menuAdm = new Menu_Adm();
+							menuAdm.menuAdm();
+							dispose();
+						}
 					}
 					else {
 						System.out.println("certo produtor");

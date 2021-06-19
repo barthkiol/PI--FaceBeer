@@ -4,9 +4,11 @@ import java.sql.*;
 import java.util.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import classes.Coloracao;
+
 
 
 public class ColoracaoDao {
@@ -62,4 +64,17 @@ public class ColoracaoDao {
 			Query q = em.createQuery("from Coloracao");
 			return q.getResultList();				
 		}
+		
+		public Coloracao getColoracao(Integer id) {
+
+			 EntityManager em = Conexao.getEntityManager();
+		      try {
+		    	  Coloracao coloracao = (Coloracao) em.createQuery("SELECT c from Coloracao c where c.id = :id").setParameter("id", id).getSingleResult();
+		      
+
+		        return coloracao;
+		      } catch (NoResultException e) {
+		            return null;
+		      }
+		    }
 }

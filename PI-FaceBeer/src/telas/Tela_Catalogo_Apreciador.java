@@ -53,7 +53,7 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 	public Tela_Catalogo_Apreciador(Apreciador apreciador) {
 		setTitle("Ol\u00E1 " + apreciador.getNome());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 322);
+		setBounds(100, 100, 313, 332);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -96,7 +96,7 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 				selecionarVerCerveja(apreciador);
 			}
 		});
-		btnVerCerveja.setBounds(317, 65, 107, 23);
+		btnVerCerveja.setBounds(10, 234, 107, 23);
 		contentPane.add(btnVerCerveja);
 		
 		JButton btnDesFavoritar = new JButton("Desfavoritar");
@@ -106,9 +106,9 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 				desFavoritarCerveja(apreciador);
 			}
 		});
-		btnDesFavoritar.setBounds(317, 117, 107, 23);
+		btnDesFavoritar.setBounds(164, 234, 107, 23);
 		contentPane.add(btnDesFavoritar);
-		pesquisaCerveja();
+		pesquisaCerveja(apreciador.getId());
 		
 	}
 	
@@ -118,7 +118,7 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 		return new DefaultTableModel(linhas, colunas);
 		}
 	
-	private void pesquisaCerveja() {
+	private void pesquisaCerveja(Integer idApreciador) {
 		// Carregar o model na JTable
 		DefaultTableModel modelo = (DefaultTableModel)this.table.getModel();
 		modelo.setRowCount(0);
@@ -126,7 +126,7 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 		
 		CervejaDao dao = new CervejaDao();
 		try {
-			List<Cerveja>  lista  = dao.consultar();
+			List<Cerveja>  lista  = dao.consultarFavoritos(idApreciador);
 			
 			for (Cerveja cerveja : lista) {
 				modelo.addRow(
@@ -152,7 +152,7 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 		CervejaDao dao = new CervejaDao();
 		String pesquisa = textPesquisa.getText();
 		try {
-			List<Cerveja>  lista  = dao.pesquisaPerso(pesquisa);
+			List<Cerveja>  lista  = dao.pesquisaPerso(pesquisa, 0, 0, 0);
 			
 			for (Cerveja cerveja : lista) {
 				modelo.addRow(

@@ -1,7 +1,9 @@
 package principal;
 
-import classes.Estilo;
-import dao.EstiloDao;
+import java.util.List;
+
+import classes.Cerveja;
+import dao.CervejaDao;
 
 public class Testes {
 
@@ -174,9 +176,10 @@ public class Testes {
 //		String nome = "";
 //		int estilo = 0;
 //		int pais = 0;
-//		int amargor = 1;
+//		int amargor = 0;
+//		int apreciador = 4;
 //		try {
-//			List<Cerveja> lista = dao.pesquisaPerso(nome, estilo, pais, amargor);
+//			List<Cerveja> lista = dao.pesquisaCatalogo(nome, 4);
 //			for (Cerveja c : lista) {
 //				System.out.println(c);
 //			}
@@ -191,6 +194,17 @@ public class Testes {
 //		} catch (Exception e) {
 //			System.out.println(e.getMessage());
 //		}
+		
+//		CervejaDao dao = new CervejaDao();
+//		try {
+//			List<Cerveja> lista = dao.consultarFavoritos(4);
+//			for (Cerveja c : lista) {
+//				System.out.println(c);
+//			}
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+				
 	} 
 
 	

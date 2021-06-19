@@ -4,9 +4,11 @@ import java.sql.*;
 import java.util.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import classes.Estilo;
+
 
 
 public class EstiloDao {
@@ -62,4 +64,17 @@ public class EstiloDao {
 			Query q = em.createQuery("from Estilo");
 			return q.getResultList();				
 		}
+		
+		public Estilo getEstilo(Integer id) {
+
+			 EntityManager em = Conexao.getEntityManager();
+		      try {
+		    	  Estilo estilo = (Estilo) em.createQuery("SELECT c from Estilo c where c.id = :id").setParameter("id", id).getSingleResult();
+		      
+
+		        return estilo;
+		      } catch (NoResultException e) {
+		            return null;
+		      }
+		    }
 }

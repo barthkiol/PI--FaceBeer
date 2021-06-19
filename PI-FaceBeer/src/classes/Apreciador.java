@@ -52,10 +52,15 @@ public class Apreciador {
 	}
 	
 	private String nome;
+	
+	@Column(unique = true)
 	private String cpf;
 	private String email;
 	private Date datanasc;
+	
+	@Column(unique = true)
 	private String usuarioA;
+	
 	private String senhaA;
 	private String telefone;
 	
