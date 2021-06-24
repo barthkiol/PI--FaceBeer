@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import classes.Aroma;
+import classes.Cerveja;
 
 
 
@@ -25,10 +26,7 @@ public class AromaDao {
 			return "Ok";
 		} catch(Exception e) {
 			throw new Exception("Erro gravando Aroma: "+e.getMessage());
-		} 
-		finally {
-			con.close();
-		}			
+		} 			
 	}
 	// alterar
 		public String alterar(Aroma aroma) throws Exception {
@@ -77,4 +75,25 @@ public class AromaDao {
 		            return null;
 		      }
 		    }
+		
+		public String deletarAromasporCerveja(Cerveja cerveja) throws Exception {
+			try {
+				Connection con = null;
+				String url = "jdbc:sqlserver://localhost;databaseName=bancoPI;";
+          
+				String username = "Teste";
+				String password = "barth2006";
+ 		 	
+				con = DriverManager.getConnection(url,username,password);	
+				
+				String cSql = "DELETE FROM TB_CERVEJA_AROMA WHERE cerveja_id = ?";
+				PreparedStatement pstmt = con.prepareStatement(cSql);
+				pstmt.setInt(1, cerveja.getId());
+				pstmt.execute();
+				pstmt.close();
+				return "Ok";
+			}catch(Exception e) {
+				throw new Exception("Erro excluindo  Avaliacao: " + e.getMessage());
+			}		
+		}
 }

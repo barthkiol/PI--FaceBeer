@@ -20,8 +20,14 @@ import telas.*;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Menu_Apreciador extends JFrame {
 
@@ -37,7 +43,15 @@ public class Menu_Apreciador extends JFrame {
 			public void run() {
 				try {
 					Menu_Apreciador frame = new Menu_Apreciador(apreciador);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {						 
+						    Inicial frameNew = new Inicial();
+						    frameNew.main(null);
+						}						 
+						  });
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,6 +67,7 @@ public class Menu_Apreciador extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 322);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -73,7 +88,7 @@ public class Menu_Apreciador extends JFrame {
 		}
 		
 		JComboBox cbEstilo = new JComboBox();
-		cbEstilo.setBounds(93, 68, 73, 20);
+		cbEstilo.setBounds(93, 68, 83, 20);
 		contentPane.add(cbEstilo);
 		Estilo estiloNulo = new Estilo(0," ");
 		cbEstilo.addItem(estiloNulo);
@@ -88,7 +103,7 @@ public class Menu_Apreciador extends JFrame {
 		}
 		
 		JComboBox cbPais = new JComboBox();
-		cbPais.setBounds(176, 68, 73, 20);
+		cbPais.setBounds(186, 68, 85, 20);
 		contentPane.add(cbPais);
 		Pais paisNulo = new Pais(0," ");
 		cbPais.addItem(paisNulo);
@@ -103,7 +118,7 @@ public class Menu_Apreciador extends JFrame {
 		}
 		
 		JLabel lblAmargor = new JLabel("Amargor");
-		lblAmargor.setBounds(10, 55, 46, 14);
+		lblAmargor.setBounds(10, 55, 73, 14);
 		contentPane.add(lblAmargor);
 		
 		JLabel lblEstilo = new JLabel("Estilo");
@@ -111,11 +126,12 @@ public class Menu_Apreciador extends JFrame {
 		contentPane.add(lblEstilo);
 		
 		JLabel lblPais = new JLabel("Pa\u00EDs");
-		lblPais.setBounds(176, 55, 46, 14);
+		lblPais.setBounds(186, 55, 46, 14);
 		contentPane.add(lblPais);
-		pesquisaCerveja();
+		
 		
 		JButton btnPerfil = new JButton("Ver perfil");
+		btnPerfil.setBackground(Color.WHITE);
 		btnPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -130,16 +146,20 @@ public class Menu_Apreciador extends JFrame {
 		contentPane.add(btnPerfil);
 		
 		JButton btnMeuCat = new JButton("Meu cat\u00E1logo");
+		btnMeuCat.setBackground(Color.CYAN);
 		btnMeuCat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				Tela_Catalogo_Apreciador telaCatAp = new Tela_Catalogo_Apreciador(apreciador);
+				telaCatAp.catlogApreciador(apreciador);
+				dispose();
 			}
 		});
 		btnMeuCat.setBounds(125, 249, 117, 23);
 		contentPane.add(btnMeuCat);
 		
 		table = new JTable();
+		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
@@ -160,16 +180,18 @@ public class Menu_Apreciador extends JFrame {
 		textPesquisa.setColumns(10);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setBackground(Color.GREEN);
 		btnPesquisar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				pesquisaCervejaPerso((Estilo) cbEstilo.getSelectedItem(), (Pais) cbPais.getSelectedItem(), (Amargor) cbAmargor.getSelectedItem());
 			}
 		});
-		btnPesquisar.setBounds(176, 30, 89, 23);
+		btnPesquisar.setBounds(176, 30, 95, 23);
 		contentPane.add(btnPesquisar);
 		
 		JButton btnVerCerveja = new JButton("Ver Cerveja");
+		btnVerCerveja.setBackground(Color.WHITE);
 		btnVerCerveja.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -180,6 +202,7 @@ public class Menu_Apreciador extends JFrame {
 		contentPane.add(btnVerCerveja);
 		
 		JButton btnFavoritar = new JButton("Favoritar");
+		btnFavoritar.setBackground(Color.PINK);
 		btnFavoritar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -189,7 +212,19 @@ public class Menu_Apreciador extends JFrame {
 		btnFavoritar.setBounds(317, 117, 107, 23);
 		contentPane.add(btnFavoritar);
 		
+		JButton Sair = new JButton("Sair");
+		Sair.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Inicial frameNew = new Inicial();
+			    frameNew.main(null);
+			    dispose();
+			}
+		});
+		Sair.setBounds(335, 249, 89, 23);
+		contentPane.add(Sair);
 		
+		pesquisaCerveja();
 		
 	}
 	

@@ -19,6 +19,7 @@ import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class Ver_Cerveja extends JFrame {
 
@@ -32,6 +33,7 @@ public class Ver_Cerveja extends JFrame {
 			public void run() {
 				try {
 					Ver_Cerveja frame = new Ver_Cerveja(cerveja, apreciador);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,8 +48,9 @@ public class Ver_Cerveja extends JFrame {
 	public Ver_Cerveja(Cerveja cerveja, Apreciador apreciador) {
 		setTitle(cerveja.getNome());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 365, 370);
+		setBounds(100, 100, 388, 370);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -65,7 +68,7 @@ public class Ver_Cerveja extends JFrame {
 		contentPane.add(lblPais);
 		
 		JLabel lblEstilo = new JLabel("Estilo: " + cerveja.getEstilo());
-		lblEstilo.setBounds(203, 73, 156, 14);
+		lblEstilo.setBounds(203, 73, 169, 14);
 		contentPane.add(lblEstilo);
 		
 		JLabel lblAmargor = new JLabel("Amargor: " + cerveja.getAmargor());
@@ -73,7 +76,7 @@ public class Ver_Cerveja extends JFrame {
 		contentPane.add(lblAmargor);
 		
 		JLabel lblAromas = new JLabel("Aromas: " + cerveja.getAromas());
-		lblAromas.setBounds(10, 123, 156, 14);
+		lblAromas.setBounds(10, 123, 183, 14);
 		contentPane.add(lblAromas);
 		
 		JLabel lblTemperatura = new JLabel("Temperatura ideal: " + cerveja.getTemperatura() + " °C");
@@ -89,11 +92,12 @@ public class Ver_Cerveja extends JFrame {
 		contentPane.add(lblTeorAlc);
 		
 		JButton btnAvaliar = new JButton("Avaliar");
+		btnAvaliar.setBackground(Color.CYAN);
 		btnAvaliar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println(cerveja);
-				System.out.println(apreciador);
+				//System.out.println(cerveja);
+				//System.out.println(apreciador);
 				Avaliar av = new Avaliar(cerveja, apreciador);
 				av.telaAvaliar(cerveja, apreciador);
 			}
@@ -101,14 +105,14 @@ public class Ver_Cerveja extends JFrame {
 		btnAvaliar.setBounds(232, 297, 89, 23);
 		contentPane.add(btnAvaliar);
 		
-		JLabel lblNota = new JLabel();
-		AvaliacaoDao avDao = new AvaliacaoDao();
-		if (avDao.temNota(cerveja) == true) {
-			lblNota.setText("Nota: Sem avaliação :C");
-		} else {
-			double f = avDao.mediaNota(cerveja);
-			lblNota.setText("Nota:" + f);
-		}
+			JLabel lblNota = new JLabel();
+			AvaliacaoDao avDao = new AvaliacaoDao();
+			if (avDao.temNota(cerveja) == true) {
+				lblNota.setText("Nota: Sem avaliação :C");
+			} else {
+				double f = avDao.mediaNota(cerveja);
+				lblNota.setText("Nota:" + f);
+			}
 		
 		lblNota.setBounds(10, 173, 149, 14);
 		contentPane.add(lblNota);
@@ -120,6 +124,7 @@ public class Ver_Cerveja extends JFrame {
 		textDescricao.setText(cerveja.getDescricao());
 		
 		JButton btnVerAvali = new JButton("Ver Avalia\u00E7\u00F5es");
+		btnVerAvali.setBackground(Color.WHITE);
 		btnVerAvali.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

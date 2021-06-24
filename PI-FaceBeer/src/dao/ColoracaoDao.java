@@ -26,9 +26,7 @@ public class ColoracaoDao {
 		} catch(Exception e) {
 			throw new Exception("Erro gravando Coloracao: "+e.getMessage());
 		} 
-		finally {
-			con.close();
-		}			
+					
 	}
 	// alterar
 		public String alterar(Coloracao coloracao) throws Exception {

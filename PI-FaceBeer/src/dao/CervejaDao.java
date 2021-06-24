@@ -50,8 +50,29 @@ public class CervejaDao {
 		
 		// excluir
 		public String deletar(Cerveja cerveja) throws Exception {
+			
 			try {
 				EntityManager em = Conexao.getEntityManager();
+				Connection con = null;
+				String url = "jdbc:sqlserver://localhost;databaseName=bancoPI;";
+          
+				String username = "Teste";
+				String password = "barth2006";
+ 		 	
+				con = DriverManager.getConnection(url,username,password);	
+				
+				String cSql = "DELETE FROM TB_APRECIADOR_CERVEJA WHERE cerveja_id = ?";
+				PreparedStatement pstmt = con.prepareStatement(cSql);
+				pstmt.setInt(1, cerveja.getId());
+				pstmt.execute();
+				pstmt.close();
+				
+				AvaliacaoDao avDao = new AvaliacaoDao();
+				avDao.deletarAvaporCerveja(cerveja);
+				
+				AromaDao aroDao = new AromaDao();
+				aroDao.deletarAromasporCerveja(cerveja);
+				
 				Cerveja c = em.find(Cerveja.class, cerveja.getId());
 				em.getTransaction().begin();
 				em.remove(c);

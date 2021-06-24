@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import classes.*;
 import dao.*;
 
-public class AromaAdm extends JFrame {
+public class Requerimentos_ADM extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -27,11 +27,11 @@ public class AromaAdm extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void telaAroma() {
+	public static void telaSuporte() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AromaAdm frame = new AromaAdm();
+					Requerimentos_ADM frame = new Requerimentos_ADM();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -44,8 +44,8 @@ public class AromaAdm extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AromaAdm() {
-		setTitle("Aromas");
+	public Requerimentos_ADM() {
+		setTitle("Requerimentos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 431, 282);
 		contentPane = new JPanel();
@@ -55,11 +55,12 @@ public class AromaAdm extends JFrame {
 		contentPane.setLayout(null);
 		
 		table = new JTable();
+		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
 				new String[] {
-				"ID", "Nome"
+				"ID", "Descricao", "Produtor"
 				}
 				));
 		table.setBounds(35, 50, 257, 181);
@@ -69,53 +70,43 @@ public class AromaAdm extends JFrame {
 		scroll.setBounds(35, 50, 257, 181);
 		contentPane.add(scroll);
 		
-		JButton btnNovoTipo = new JButton("Novo");
-		btnNovoTipo.setBackground(Color.GREEN);
-		btnNovoTipo.addMouseListener(new MouseAdapter() {
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setBackground(Color.RED);
+		btnExcluir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AromaNovo novoAroma = new AromaNovo();
-				novoAroma.novoAromaCer();
+				excluir();
 			}
 		});
-		btnNovoTipo.setBounds(319, 67, 89, 23);
-		contentPane.add(btnNovoTipo);
-		
-		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				selecionarAromaAlter();
-			}
-		});
-		btnAlterar.setBounds(319, 139, 89, 23);
-		contentPane.add(btnAlterar);
+		btnExcluir.setBounds(316, 130, 89, 23);
+		contentPane.add(btnExcluir);
 		
 		
-		listaAromas();
+		listaSuportes();
 	}
 	
 	private DefaultTableModel getModelo() {
-		String[][] linhas= new String[][] {{"1", "Nome"}};
-		String[] colunas = new String []{"ID", "Nome"};
+		String[][] linhas= new String[][] {{"1", "Nome", "1"}};
+		String[] colunas = new String []{"ID", "Nome", "Produtor"};
 		return new DefaultTableModel(linhas, colunas);
 		}
 	
-	private void listaAromas() {
+	private void listaSuportes() {
 		// Carregar o model na JTable
 		DefaultTableModel modelo = (DefaultTableModel)this.table.getModel();
 		modelo.setRowCount(0);
 		table.setModel(modelo);
 		
-		AromaDao dao = new AromaDao();
+		SuporteDao dao = new SuporteDao();
 		try {
-			List<Aroma>  lista  = dao.consultar();
+			List<Suporte>  lista  = dao.consultar();
 			
-			for (Aroma tipo : lista) {
+			for (Suporte tipo : lista) {
 				modelo.addRow(
 						new Object[] {
 								tipo.getId(),
-								tipo.getNome()								
+								tipo.getTexto(),
+								tipo.getProdutor().nomeProdutor()
 						}
 					);
 			}
@@ -124,15 +115,18 @@ public class AromaAdm extends JFrame {
 		}
 	}
 	
-	private void selecionarAromaAlter() {
+	private void excluir() {
 		int linha = table.getSelectedRow();
 		int id = (Integer)table.getValueAt(linha, 0);
-		String nome = (String)table.getValueAt(linha, 1);
-		Aroma aroma = new Aroma();
-		AromaDao dao = new AromaDao();
-		aroma = dao.getAroma(id);
-		AromaAlterar alterarAroma = new AromaAlterar(aroma);
-		alterarAroma.alteraAroma(aroma);
+		Suporte suporte = new Suporte();
+		SuporteDao dao = new SuporteDao();
+		suporte = dao.getSuporte(id);
+		try {
+			dao.deletar(suporte);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+		}
+		
 	}
 	
 

@@ -30,6 +30,7 @@ public class ColoracaoAlterar extends JFrame {
 			public void run() {
 				try {
 					ColoracaoAlterar frame = new ColoracaoAlterar(coloracao);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,6 +47,7 @@ public class ColoracaoAlterar extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 309, 163);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -75,6 +77,8 @@ public class ColoracaoAlterar extends JFrame {
 				try {
 					dao.alterar(coloracao);
 					JOptionPane.showMessageDialog(null, "Alterado");
+					ColoracaoAdm telaColoracaoAdm = new ColoracaoAdm();
+					telaColoracaoAdm.telaColoracao();
 					dispose();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, e2);

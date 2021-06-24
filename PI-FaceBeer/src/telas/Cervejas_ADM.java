@@ -23,11 +23,9 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.Color;
 
-public class Cervejas_Produtor extends JFrame {
+public class Cervejas_ADM extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -35,20 +33,13 @@ public class Cervejas_Produtor extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void cervejasProdutor(Produtor produtor) {
+	public static void cervejasADM() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Cervejas_Produtor frame = new Cervejas_Produtor(produtor);
+					Cervejas_ADM frame = new Cervejas_ADM();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
-					frame.addWindowListener(new WindowAdapter() {
-						@Override
-						public void windowClosing(WindowEvent e) {						 
-						    Menu_Produtor frameNew = new Menu_Produtor(produtor);
-						    frameNew.menuProdutor(produtor);
-						}						 
-					});
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -59,7 +50,8 @@ public class Cervejas_Produtor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Cervejas_Produtor(Produtor produtor) {
+	public Cervejas_ADM() {
+		setTitle("Cervejas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 517, 317);
 		contentPane = new JPanel();
@@ -100,12 +92,11 @@ public class Cervejas_Produtor extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				excluirCerveja();
-				pesquisaCerveja(produtor);
 			}
 		});
 		btnDeletar.setBounds(378, 153, 113, 23);
 		contentPane.add(btnDeletar);
-		pesquisaCerveja(produtor);
+		pesquisaCerveja();
 	}
 	
 	
@@ -115,7 +106,7 @@ public class Cervejas_Produtor extends JFrame {
 		return new DefaultTableModel(linhas, colunas);
 		}
 	
-	private void pesquisaCerveja(Produtor produtor) {
+	private void pesquisaCerveja() {
 		// Carregar o model na JTable
 		DefaultTableModel modelo = (DefaultTableModel)this.table.getModel();
 		modelo.setRowCount(0);
@@ -123,7 +114,7 @@ public class Cervejas_Produtor extends JFrame {
 		
 		CervejaDao dao = new CervejaDao();
 		try {
-			List<Cerveja>  lista  = dao.consultarCervProdutor(produtor);
+			List<Cerveja>  lista  = dao.consultar();
 			
 			for (Cerveja cerveja : lista) {
 				modelo.addRow(
@@ -158,7 +149,6 @@ public class Cervejas_Produtor extends JFrame {
 		cerveja = dao.getCerveja(nome);
 		try {
 			dao.deletar(cerveja);
-			JOptionPane.showMessageDialog(null, "Cerveja excluida!");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 		}

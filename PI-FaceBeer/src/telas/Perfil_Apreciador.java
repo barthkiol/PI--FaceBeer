@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import classes.Apreciador;
+import java.awt.Color;
 
 public class Perfil_Apreciador extends JFrame {
 
@@ -25,6 +26,7 @@ public class Perfil_Apreciador extends JFrame {
 			public void run() {
 				try {
 					Perfil_Apreciador frame = new Perfil_Apreciador(apreciador);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,8 +41,9 @@ public class Perfil_Apreciador extends JFrame {
 	 */
 	public Perfil_Apreciador(Apreciador apreciador) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 279, 299);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

@@ -34,6 +34,7 @@ public class Avaliar extends JFrame {
 			public void run() {
 				try {
 					Avaliar frame = new Avaliar(cerveja, apreciador);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,6 +51,7 @@ public class Avaliar extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 310, 325);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -68,22 +70,27 @@ public class Avaliar extends JFrame {
 		contentPane.add(lblComment);
 		
 		JRadioButton rdbtnNota1 = new JRadioButton("1");
+		rdbtnNota1.setBackground(Color.ORANGE);
 		rdbtnNota1.setBounds(87, 105, 40, 18);
 		contentPane.add(rdbtnNota1);
 		
 		JRadioButton rdbtnNota2 = new JRadioButton("2");
+		rdbtnNota2.setBackground(Color.ORANGE);
 		rdbtnNota2.setBounds(129, 105, 40, 18);
 		contentPane.add(rdbtnNota2);
 		
 		JRadioButton rdbtnNota3 = new JRadioButton("3");
+		rdbtnNota3.setBackground(Color.ORANGE);
 		rdbtnNota3.setBounds(171, 105, 40, 18);
 		contentPane.add(rdbtnNota3);
 		
 		JRadioButton rdbtnNota4 = new JRadioButton("4");
+		rdbtnNota4.setBackground(Color.ORANGE);
 		rdbtnNota4.setBounds(213, 105, 40, 18);
 		contentPane.add(rdbtnNota4);
 		
 		JRadioButton rdbtnNota5 = new JRadioButton("5");
+		rdbtnNota5.setBackground(Color.ORANGE);
 		rdbtnNota5.setBounds(255, 105, 40, 18);
 		contentPane.add(rdbtnNota5);
 		

@@ -2,8 +2,9 @@ package principal;
 
 import java.util.List;
 
-import classes.Cerveja;
-import dao.CervejaDao;
+import classes.Produtor;
+import classes.Suporte;
+import dao.SuporteDao;
 
 public class Testes {
 
@@ -204,7 +205,56 @@ public class Testes {
 //		} catch (Exception e) {
 //			System.out.println(e.getMessage());
 //		}
-				
+		
+//		Cerveja cerveja = new Cerveja();
+//		cerveja.setId(9);
+//		CervejaDao dao = new CervejaDao();
+//		try {
+//			dao.deletar(cerveja);
+//		} catch (Exception e){
+//			System.out.println(e.getMessage());
+//		}
+		
+//		Administrador adm = new Administrador();
+//		adm.setNomeAdm("Gabriel Barth");
+//		adm.setUsuarioAdm("adming1");
+//		adm.setSenhaAdm("adminbarth");
+//		AdministradorDao dao = new AdministradorDao();
+//		try {
+//			dao.salvar(adm);
+//		} catch (Exception e){
+//			System.out.println(e.getMessage());
+//		}
+		
+//		Produtor prod = new Produtor();
+//		prod.setId(3);
+//		Suporte sup = new Suporte();
+//		sup.setId(1);
+//		System.out.println(sup);
+//		sup.setProdutor(prod);
+//		sup.setTexto("Requerimento de suporte teste produtor 2");
+		SuporteDao dao = new SuporteDao();
+//		boolean req = false;
+//		try {
+//			req = dao.buscaReq(prod);
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		if(req == true) {
+//			try {
+//				dao.salvar(sup);
+//			} catch (Exception e) {
+//				System.out.println(e.getMessage());
+//			}
+//		} else {
+//			System.out.println("ja possui requerimento");
+//		}
+		
+//		List<Suporte> list = dao.consultar();
+//		
+//		for (Suporte s : list) {
+//			System.out.println(s);
+//		}
 	} 
 
 	

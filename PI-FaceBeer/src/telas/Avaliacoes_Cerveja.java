@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import classes.*;
 import bo.*;
 import dao.*;
+import java.awt.Color;
 
 public class Avaliacoes_Cerveja extends JFrame {
 
@@ -28,6 +29,7 @@ public class Avaliacoes_Cerveja extends JFrame {
 			public void run() {
 				try {
 					Avaliacoes_Cerveja frame = new Avaliacoes_Cerveja(cerveja);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,17 +45,19 @@ public class Avaliacoes_Cerveja extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 496, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		table = new JTable();
+		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
+			new Object[][] {
+			},
+			new String[] {
 				"Nome", "Comentario", "Nota"
-				}
-				));
+			}
+		));
 		table.setBounds(21, 46, 261, 141);
 		//contentPane.add(table);
 		JScrollPane scroll = new JScrollPane(table);

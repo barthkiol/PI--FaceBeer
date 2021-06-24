@@ -5,18 +5,22 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import bo.ApreciadorBo;
 import classes.Apreciador;
@@ -40,7 +44,16 @@ public class Cadastro_Apreciador extends JFrame {
 			public void run() {
 				try {
 					Cadastro_Apreciador frame = new Cadastro_Apreciador();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {						 
+						    Inicial frameNew = new Inicial();
+						    frameNew.main(null);
+						}						 
+						  });
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,6 +69,7 @@ public class Cadastro_Apreciador extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 424, 351);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -79,11 +93,11 @@ public class Cadastro_Apreciador extends JFrame {
 		textCPF.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("E-mail:");
-		lblEmail.setBounds(38, 80, 46, 14);
+		lblEmail.setBounds(38, 125, 46, 14);
 		contentPane.add(lblEmail);
 		
 		textEmail = new JTextField();
-		textEmail.setBounds(38, 94, 160, 20);
+		textEmail.setBounds(38, 138, 338, 20);
 		contentPane.add(textEmail);
 		textEmail.setColumns(10);
 		
@@ -91,18 +105,26 @@ public class Cadastro_Apreciador extends JFrame {
 		lblDataNasc.setBounds(218, 80, 135, 14);
 		contentPane.add(lblDataNasc);
 		
-		textDataNasc = new JTextField();
-		textDataNasc.setToolTipText("Dia/m\u00EAs/Ano");
-		textDataNasc.setBounds(218, 94, 160, 20);
-		contentPane.add(textDataNasc);
-		textDataNasc.setColumns(10);
+
+		try {
+			MaskFormatter mask = new MaskFormatter("##/##/####");
+			textDataNasc = new JFormattedTextField(mask);
+			textDataNasc.setToolTipText("Dia/m\u00EAs/Ano");
+			textDataNasc.setBounds(218, 94, 160, 20);
+			contentPane.add(textDataNasc);
+			textDataNasc.setColumns(10);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(38, 125, 61, 14);
+		lblTelefone.setBounds(38, 80, 61, 14);
 		contentPane.add(lblTelefone);
 		
 		textTelefone = new JTextField();
-		textTelefone.setBounds(38, 138, 160, 20);
+		textTelefone.setBounds(38, 94, 160, 20);
 		contentPane.add(textTelefone);
 		textTelefone.setColumns(10);
 		
@@ -156,6 +178,7 @@ public class Cadastro_Apreciador extends JFrame {
 		btnProdutor.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		btnProdutor.setBounds(154, 281, 98, 20);
 		contentPane.add(btnProdutor);
+		
 	}
 	
 	public void cadastrar() throws Exception  {
@@ -173,11 +196,24 @@ public class Cadastro_Apreciador extends JFrame {
 		apreciadorTemp.setDatanasc(dataNascInput);
 		try {
 			bo.salvar(apreciadorTemp);
+			JOptionPane.showMessageDialog(null, "Bem vindo!");
+			dispose();
+			Inicial frameNew = new Inicial();
+			frameNew.main(null);
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 		}
-		JOptionPane.showMessageDialog(null, "Bem vindo!");
-		dispose();
+		
 	}
 	
+	public void formatarData() {
+		try {
+			MaskFormatter mask = new MaskFormatter("##/##/####");
+			mask.install((JFormattedTextField) textDataNasc);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+	}
 }

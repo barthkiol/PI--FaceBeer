@@ -19,6 +19,7 @@ import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class Ver_Cerveja_Produtor extends JFrame {
 
@@ -32,6 +33,7 @@ public class Ver_Cerveja_Produtor extends JFrame {
 			public void run() {
 				try {
 					Ver_Cerveja_Produtor frame = new Ver_Cerveja_Produtor(cerveja);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,6 +50,7 @@ public class Ver_Cerveja_Produtor extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 365, 370);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -88,9 +91,15 @@ public class Ver_Cerveja_Produtor extends JFrame {
 		lblTeorAlc.setBounds(203, 123, 156, 14);
 		contentPane.add(lblTeorAlc);
 		
+		JLabel lblNota = new JLabel();
 		AvaliacaoDao avDao = new AvaliacaoDao();
-		double f = avDao.mediaNota(cerveja);
-		JLabel lblNota = new JLabel("Nota: " + f);
+		if (avDao.temNota(cerveja) == true) {
+			lblNota.setText("Nota: Sem avaliação :C");
+		} else {
+			double f = avDao.mediaNota(cerveja);
+			lblNota.setText("Nota:" + f);
+		}
+		
 		lblNota.setBounds(10, 173, 149, 14);
 		contentPane.add(lblNota);
 		
@@ -101,6 +110,7 @@ public class Ver_Cerveja_Produtor extends JFrame {
 		textDescricao.setText(cerveja.getDescricao());
 		
 		JButton btnVerAvali = new JButton("Ver Avalia\u00E7\u00F5es");
+		btnVerAvali.setBackground(Color.WHITE);
 		btnVerAvali.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

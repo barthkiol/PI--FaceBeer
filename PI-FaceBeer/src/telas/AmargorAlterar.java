@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,7 +32,15 @@ public class AmargorAlterar extends JFrame {
 			public void run() {
 				try {
 					AmargorAlterar frame = new AmargorAlterar(amargor);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {						 
+						    AmargorAdm frameNew = new AmargorAdm();
+						    frameNew.telaAmargor();
+						}						 
+					});
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -46,6 +56,7 @@ public class AmargorAlterar extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 309, 163);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -75,10 +86,13 @@ public class AmargorAlterar extends JFrame {
 				try {
 					dao.alterar(amargor);
 					JOptionPane.showMessageDialog(null, "Alterado");
+					AmargorAdm telaAmargorAdm = new AmargorAdm();
+					telaAmargorAdm.telaAmargor();
 					dispose();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, e2);
 				}
+				
 			}
 		});
 		btnAlterar.setBounds(179, 68, 89, 23);

@@ -32,6 +32,7 @@ public class PaisAdm extends JFrame {
 			public void run() {
 				try {
 					PaisAdm frame = new PaisAdm();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,11 +49,13 @@ public class PaisAdm extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 431, 282);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		table = new JTable();
+		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
 				new Object[][] {
 				},

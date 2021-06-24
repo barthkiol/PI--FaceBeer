@@ -25,10 +25,7 @@ public class AmargorDao {
 			return "Ok";
 		} catch(Exception e) {
 			throw new Exception("Erro gravando Amargor: "+e.getMessage());
-		} 
-		finally {
-			con.close();
-		}			
+		} 			
 	}
 	// alterar
 		public String alterar(Amargor amargor) throws Exception {

@@ -29,6 +29,7 @@ public class PaisNovo extends JFrame {
 			public void run() {
 				try {
 					PaisNovo frame = new PaisNovo();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,6 +46,7 @@ public class PaisNovo extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 296, 152);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -66,6 +68,8 @@ public class PaisNovo extends JFrame {
 				try {
 					dao.salvar(pais);
 					JOptionPane.showMessageDialog(null, "Pais Criado");
+					PaisAdm telaPaisAdm = new PaisAdm();
+					telaPaisAdm.telaPais();
 					dispose();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, e2);

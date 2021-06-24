@@ -15,6 +15,8 @@ import bo.ProdutorBo;
 import classes.Produtor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Cadastro_Produtor extends JFrame {
 
@@ -34,7 +36,15 @@ public class Cadastro_Produtor extends JFrame {
 			public void run() {
 				try {
 					Cadastro_Produtor frame = new Cadastro_Produtor();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {						 
+						    Inicial frameNew = new Inicial();
+						    frameNew.main(null);
+						}						 
+						  });
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,6 +60,7 @@ public class Cadastro_Produtor extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 393, 294);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -115,6 +126,9 @@ public class Cadastro_Produtor extends JFrame {
 				cadastrarProdutor();
 				JOptionPane.showMessageDialog(null, "Bem vindo!");
 				dispose();
+				Inicial frameNew = new Inicial();
+				frameNew.main(null);
+			
 			}
 		});
 		btnCadastrar.setBackground(Color.GREEN);

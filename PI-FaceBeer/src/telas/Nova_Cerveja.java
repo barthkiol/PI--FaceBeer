@@ -28,6 +28,8 @@ import dao.EstiloDao;
 import dao.PaisDao;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Nova_Cerveja extends JFrame {
 
@@ -45,7 +47,15 @@ public class Nova_Cerveja extends JFrame {
 			public void run() {
 				try {
 					Nova_Cerveja frame = new Nova_Cerveja(produtor);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {						 
+						    Menu_Produtor frameNew = new Menu_Produtor(produtor);
+						    frameNew.menuProdutor(produtor);
+						}						 
+					});
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -61,6 +71,7 @@ public class Nova_Cerveja extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 319, 424);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -213,6 +224,8 @@ public class Nova_Cerveja extends JFrame {
 				String descTemp = textDesc.getText();
 				cadastrarCerveja(paisTemp, estiloTemp, amargorTemp, corTemp, aromaTemp, descTemp, produtor);
 				JOptionPane.showMessageDialog(null, "Cerveja criada com sucesso!");
+				Menu_Produtor telaMenu = new Menu_Produtor(produtor);
+				telaMenu.menuProdutor(produtor);
 				dispose();
 			}
 		});

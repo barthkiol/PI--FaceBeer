@@ -26,9 +26,7 @@ public class PaisDao {
 		} catch(Exception e) {
 			throw new Exception("Erro gravando Pais: "+e.getMessage());
 		} 
-		finally {
-			con.close();
-		}			
+					
 	}
 	// alterar
 		public String alterar(Pais pais) throws Exception {

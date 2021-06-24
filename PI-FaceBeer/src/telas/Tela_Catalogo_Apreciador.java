@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -23,6 +25,7 @@ import classes.Cerveja;
 import classes.Estilo;
 import classes.Pais;
 import dao.CervejaDao;
+import java.awt.Color;
 
 public class Tela_Catalogo_Apreciador extends JFrame {
 
@@ -38,7 +41,15 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 			public void run() {
 				try {
 					Tela_Catalogo_Apreciador frame = new Tela_Catalogo_Apreciador(apreciador);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {						 
+						    Menu_Apreciador frameNew = new Menu_Apreciador(apreciador);
+						    frameNew.menuApreciador(apreciador);
+						}						 
+						  });
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,11 +66,13 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 313, 332);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		table = new JTable();
+		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
@@ -80,16 +93,18 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 		textPesquisa.setColumns(10);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setBackground(Color.GREEN);
 		btnPesquisar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//pesquisaCervejaPerso();
 			}
 		});
-		btnPesquisar.setBounds(176, 30, 89, 23);
+		btnPesquisar.setBounds(176, 30, 95, 23);
 		contentPane.add(btnPesquisar);
 		
 		JButton btnVerCerveja = new JButton("Ver Cerveja");
+		btnVerCerveja.setBackground(Color.WHITE);
 		btnVerCerveja.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -100,6 +115,7 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 		contentPane.add(btnVerCerveja);
 		
 		JButton btnDesFavoritar = new JButton("Desfavoritar");
+		btnDesFavoritar.setBackground(Color.RED);
 		btnDesFavoritar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -108,6 +124,18 @@ public class Tela_Catalogo_Apreciador extends JFrame {
 		});
 		btnDesFavoritar.setBounds(164, 234, 107, 23);
 		contentPane.add(btnDesFavoritar);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Menu_Apreciador frameNew = new Menu_Apreciador(apreciador);
+			    frameNew.menuApreciador(apreciador);
+			    dispose();
+			}
+		});
+		btnVoltar.setBounds(93, 268, 89, 23);
+		contentPane.add(btnVoltar);
 		pesquisaCerveja(apreciador.getId());
 		
 	}

@@ -26,9 +26,7 @@ public class EstiloDao {
 		} catch(Exception e) {
 			throw new Exception("Erro gravando Estilo: "+e.getMessage());
 		} 
-		finally {
-			con.close();
-		}			
+					
 	}
 	// alterar
 		public String alterar(Estilo estilo) throws Exception {

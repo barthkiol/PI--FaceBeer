@@ -1,6 +1,9 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -51,7 +54,28 @@ public class AvaliacaoDao {
 			}catch(Exception e) {
 				throw new Exception("Erro gravando  Avaliacao: " + e.getMessage());
 			}		
-		}	
+		}
+		
+		public String deletarAvaporCerveja(Cerveja cerveja) throws Exception {
+			try {
+				Connection con = null;
+				String url = "jdbc:sqlserver://localhost;databaseName=bancoPI;";
+          
+				String username = "Teste";
+				String password = "barth2006";
+ 		 	
+				con = DriverManager.getConnection(url,username,password);	
+				
+				String cSql = "DELETE FROM AVALIACAO WHERE cerveja_id = ?";
+				PreparedStatement pstmt = con.prepareStatement(cSql);
+				pstmt.setInt(1, cerveja.getId());
+				pstmt.execute();
+				pstmt.close();		
+				return "Ok";
+			}catch(Exception e) {
+				throw new Exception("Erro excluindo  Avaliacao: " + e.getMessage());
+			}		
+		}
 		
 		// consultar
 		public List<Avaliacao> consultar() throws Exception{

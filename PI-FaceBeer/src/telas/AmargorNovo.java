@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,7 +31,15 @@ public class AmargorNovo extends JFrame {
 			public void run() {
 				try {
 					AmargorNovo frame = new AmargorNovo();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {						 
+						    AmargorAdm frameNew = new AmargorAdm();
+						    frameNew.telaAmargor();
+						}						 
+					});
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,6 +55,7 @@ public class AmargorNovo extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 296, 152);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -59,6 +70,11 @@ public class AmargorNovo extends JFrame {
 		btnCriar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				novoAmargor();
+				dispose();
+			}
+
+			private void novoAmargor() {
 				String nomeAmargor = textAmargor.getText();
 				Amargor amargor = new Amargor();
 				amargor.setNome(nomeAmargor);
@@ -66,7 +82,8 @@ public class AmargorNovo extends JFrame {
 				try {
 					dao.salvar(amargor);
 					JOptionPane.showMessageDialog(null, "Amargor Criado");
-					dispose();
+					AmargorAdm telaAmargorAdm = new AmargorAdm();
+					telaAmargorAdm.telaAmargor();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, e2);
 				}

@@ -33,6 +33,7 @@ public class Inicial extends JFrame {
 			public void run() {
 				try {
 					Inicial frame = new Inicial();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,29 +48,31 @@ public class Inicial extends JFrame {
 	public Inicial() {
 		setTitle("FaceBeer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 365);
+		setBounds(100, 100, 292, 365);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblFaceBeer = new JLabel("FaceBeer");
-		lblFaceBeer.setForeground(Color.ORANGE);
+		lblFaceBeer.setBackground(Color.ORANGE);
+		lblFaceBeer.setForeground(Color.WHITE);
 		lblFaceBeer.setFont(new Font("Impact", Font.PLAIN, 40));
-		lblFaceBeer.setBounds(131, 33, 217, 96);
+		lblFaceBeer.setBounds(59, 33, 217, 96);
 		contentPane.add(lblFaceBeer);
 		
 		textUser = new JTextField();
-		textUser.setBounds(162, 140, 86, 20);
+		textUser.setBounds(110, 140, 86, 20);
 		contentPane.add(textUser);
 		textUser.setColumns(10);
 		
 		JLabel lblUser = new JLabel("Usu\u00E1rio");
-		lblUser.setBounds(116, 143, 46, 14);
+		lblUser.setBounds(59, 140, 46, 14);
 		contentPane.add(lblUser);
 		
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(116, 185, 46, 14);
+		lblSenha.setBounds(59, 185, 46, 14);
 		contentPane.add(lblSenha);
 		
 		JButton btnEntrar = new JButton("Entrar");
@@ -119,10 +122,11 @@ public class Inicial extends JFrame {
 		});
 		btnEntrar.setBackground(Color.GREEN);
 		btnEntrar.setForeground(Color.BLACK);
-		btnEntrar.setBounds(142, 227, 109, 31);
+		btnEntrar.setBounds(82, 231, 109, 31);
 		contentPane.add(btnEntrar);
 		
 		JButton btnRegister = new JButton("Cadastrar-se");
+		btnRegister.setBackground(Color.CYAN);
 		btnRegister.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -131,11 +135,11 @@ public class Inicial extends JFrame {
 				dispose();
 			}
 		});
-		btnRegister.setBounds(142, 269, 109, 23);
+		btnRegister.setBounds(82, 281, 109, 23);
 		contentPane.add(btnRegister);
 		
 		passWordSenha = new JPasswordField();
-		passWordSenha.setBounds(162, 182, 86, 20);
+		passWordSenha.setBounds(110, 182, 86, 20);
 		contentPane.add(passWordSenha);
 	}
 }

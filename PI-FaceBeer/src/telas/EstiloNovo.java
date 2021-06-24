@@ -29,6 +29,7 @@ public class EstiloNovo extends JFrame {
 			public void run() {
 				try {
 					EstiloNovo frame = new EstiloNovo();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,6 +46,7 @@ public class EstiloNovo extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 296, 152);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -66,6 +68,8 @@ public class EstiloNovo extends JFrame {
 				try {
 					dao.salvar(estilo);
 					JOptionPane.showMessageDialog(null, "Estilo Criado");
+					EstiloAdm telaEstiloAdm = new EstiloAdm();
+					telaEstiloAdm.telaEstilo();
 					dispose();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, e2);
